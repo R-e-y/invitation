@@ -140,6 +140,8 @@ img{display:block;max-width:100%}
 .scene>.inner{position:relative;z-index:2;width:100%;max-width:460px;zoom:var(--k,1);display:flex;flex-direction:column;align-items:center;gap:16px}
 .scene>.inner::before{content:"";position:absolute;inset:-24px -8px;z-index:-1;pointer-events:none;
   background:radial-gradient(closest-side,rgba(251,248,243,.82) 45%,rgba(251,248,243,0))}
+.veil-strong>.inner::before{inset:-70px -40px;background:radial-gradient(closest-side,rgba(251,248,243,.94) 62%,rgba(251,248,243,.7) 82%,rgba(251,248,243,0))}
+.veil-mid>.inner::before{inset:-50px -30px;background:radial-gradient(closest-side,rgba(251,248,243,.86) 58%,rgba(251,248,243,.5) 80%,rgba(251,248,243,0))}
 /* continuous branch + bird */
 #branch{position:absolute;left:0;top:0;width:100%;z-index:0;pointer-events:none;overflow:hidden}
 #branch img{position:absolute;max-width:none;opacity:.95;transform-origin:var(--o,0 100%);animation:bsway 4.5s ease-in-out infinite alternate}
@@ -161,6 +163,7 @@ img{display:block;max-width:100%}
   opacity:0;transform:translate(var(--fx,0),var(--fy,30px)) rotate(var(--fr,0deg)) scale(.9);
   transition:opacity 1.4s ease,transform 1.8s cubic-bezier(.2,.7,.2,1);transition-delay:0s}
 .fw.over{z-index:3}
+.fw.still img{animation:none}
 .active .fw{opacity:var(--op,1);transform:rotate(var(--fr,0deg));transition-delay:var(--d,.1s)}
 .fw img{width:100%;animation:sway calc(var(--sw,7s) * .5) ease-in-out infinite alternate;transform-origin:var(--so,50% 100%)}
 @keyframes sway{from{transform:rotate(-4deg) translateY(0)}to{transform:rotate(4deg) translateY(-7px)}}
@@ -294,7 +297,7 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
   <div id="branch" aria-hidden="true"></div>
   <div id="bird" aria-hidden="true"><img id="birdImg" src="assets/bd_W.webp" alt=""></div>
 
-  <section class="scene" id="s1">
+  <section class="scene veil-strong" id="s1">
     <div class="fw" style="width:calc(min(80vw,380px)*var(--fk,1));bottom:-6%;right:-24%;--fx:40px;--fy:40px;--fr:-6deg;--d:.4s;--sw:9s"><img src="assets/n_pastel.webp" alt=""></div>
     <div class="fw over" style="width:calc(min(52vw,260px)*var(--fk,1));top:2%;left:-8%;--fx:-30px;--fy:-20px;--fr:-6deg;--d:.9s;--so:50% 60%"><img src="assets/n_whitepeony2.webp" alt=""></div>
     <div class="inner">
@@ -316,7 +319,7 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
   </section>
 
   <section class="scene" id="s3" data-perch="tr">
-    <div class="fw" style="width:calc(min(84vw,400px)*var(--fk,1));top:4%;left:50%;margin-left:calc(min(84vw,400px)*var(--fk,1)/-2);--op:.22;--fy:20px;--d:.1s;--sw:12s"><img src="assets/n_bouquet.webp" alt=""></div>
+    <div class="fw still" style="width:calc(min(84vw,400px)*var(--fk,1));top:4%;left:50%;margin-left:calc(min(84vw,400px)*var(--fk,1)/-2);--op:.22;--fy:20px;--d:.1s;--sw:12s"><img src="assets/n_bouquet.webp" alt=""></div>
     <div class="inner">
       <div class="eyebrow ap" style="--d:.1s">Дата торжества</div>
       <div class="bigdate ap" style="--d:.4s" aria-label="Суббота, 7 ноября 2026 года">
@@ -333,7 +336,7 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
     </div>
   </section>
 
-  <section class="scene" id="s4" data-perch="l" data-bl="-8,.72,.72">
+  <section class="scene" id="s4" data-perch="lb" data-bl="-8,.72,.72">
     <div class="inner">
       <h2 class="ap" style="--d:.1s">Наша история</h2>
       <div class="oval ap zoom" style="--d:.4s">
@@ -344,11 +347,11 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
     </div>
   </section>
 
-  <section class="scene" id="s5">
-    <div class="fw" style="width:calc(min(66vw,320px)*var(--fk,1));top:6%;left:50%;margin-left:calc(min(66vw,320px)*var(--fk,1)/-2);--op:.25;--fy:20px;--d:.1s;--sw:12s"><img src="assets/n_pastel.webp" alt=""></div>
+  <section class="scene veil-strong" id="s5">
+    <div class="fw still" style="width:calc(min(66vw,320px)*var(--fk,1));top:6%;left:50%;margin-left:calc(min(66vw,320px)*var(--fk,1)/-2);--op:.25;--fy:20px;--d:.1s;--sw:12s"><img src="assets/n_pastel.webp" alt=""></div>
     <div class="fw over" style="width:calc(min(62vw,310px)*var(--fk,1));bottom:-7%;right:-14%;--fx:30px;--fy:40px;--fr:-6deg;--d:.6s;--so:50% 50%"><img src="assets/n_peony.webp" alt=""></div>
     <div class="fw" style="width:calc(min(30vw,150px)*var(--fk,1));bottom:6%;left:-6%;--fx:-30px;--fy:30px;--fr:10deg;--d:.9s;--so:50% 50%"><img src="assets/fl_rose_open.webp" alt=""></div>
-    <div class="inner" style="margin-bottom:18vh">
+    <div class="inner">
       <div class="eyebrow ap" style="--d:.1s">Место проведения</div>
       <h2 class="ap" style="--d:.4s">Ресторан «Дияр»</h2>
       <p class="addr ap" style="--d:.7s">проспект Жеңиш (Жибек-Жолу), 327<br>Бишкек</p>
@@ -356,7 +359,7 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
     </div>
   </section>
 
-  <section class="scene" id="s6" data-perch="br">
+  <section class="scene veil-mid" id="s6" data-perch="br" data-br=".75">
     <div class="fw over" style="width:calc(min(26vw,130px)*var(--fk,1));top:4%;left:-3%;--fx:-30px;--fy:-20px;--fr:10deg;--d:.5s;--so:50% 50%"><img src="assets/n_peony.webp" alt=""></div>
     <div class="inner">
       <h2 class="ap" style="--d:.1s">Программа дня</h2>
@@ -520,10 +523,11 @@ function layoutBranch(){
       im.style.cssText='width:'+jw+'px;height:'+jh+'px;left:'+(m?W-jw+Math.round(jw*.22):-Math.round(jw*.22))+'px;top:'+top+'px;--o:'+(m?'100% 100%':'0 100%')+';animation-delay:'+(-k*2.3)+'s';
       var jl=(m?W-jw+Math.round(jw*.22):-Math.round(jw*.22)),ang=0,sx=1,sy=1,ty=0,ox=m?jl+jw:jl,oy=top+jh;
       (function(){var mid=top+jh/2;list.forEach(function(sc){var bl=sc.getAttribute('data-bl'),st=sc.offsetTop,sb=st+sc.offsetHeight;
+        var br=parseFloat(sc.getAttribute('data-br'));if(m&&br&&mid>st&&mid<sb){sx=sy=br;im.style.transform='scale('+br+')';}
         if(!m&&bl&&mid>st&&mid<sb){var q=bl.split(',').map(Number);ang=q[0];sx=q[1];sy=q[2];ty=(q[3]||0)/100*jh;im.style.transform='translateY('+(q[3]||0)+'%) rotate('+q[0]+'deg) scale('+q[1]+','+q[2]+')';im.style.zIndex=1;
           var b2=sc.getAttribute('data-bl2');if(b2){var r=b2.split(',').map(Number),c=im.cloneNode();c.style.transform='translateY('+(r[3]||0)+'%) rotate('+r[0]+'deg) scale('+r[1]+','+r[2]+') scaleX(-1)';c.style.transformOrigin='30% 100%';c.style.animationDelay='-3s';branch.appendChild(c);}}});})();
       var a=ang*Math.PI/180;
-      ({jas_a:[[.49,.45],[.586,.2],[.527,.75]],jas_b:[[.47,.48],[.503,.216],[.503,.746]]})[ja].forEach(function(JP){
+      ({jas_a:[[.49,.45],[.586,.2],[.527,.75],[.531,.946]],jas_b:[[.47,.48],[.503,.216],[.503,.746],[.528,.914]]})[ja].forEach(function(JP){
         var px=m?JP[0]:1-JP[0],rx=px*jw-(m?jw:0),ry=JP[1]*jh-jh,qx=rx*sx,qy=ry*sy;
         perches.push({x:ox+qx*Math.cos(a)-qy*Math.sin(a),y:oy+ty+qx*Math.sin(a)+qy*Math.cos(a),face:m?-1:1});
       });
