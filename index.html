@@ -142,6 +142,12 @@ img{display:block;max-width:100%}
   background:radial-gradient(closest-side,rgba(251,248,243,.82) 45%,rgba(251,248,243,0))}
 .veil-strong>.inner::before{inset:-70px -40px;background:radial-gradient(closest-side,rgba(251,248,243,.94) 62%,rgba(251,248,243,.7) 82%,rgba(251,248,243,0))}
 .veil-mid>.inner::before{inset:-50px -30px;background:radial-gradient(closest-side,rgba(251,248,243,.86) 58%,rgba(251,248,243,.5) 80%,rgba(251,248,243,0))}
+/* soft glow right behind each text block */
+.scene .inner>:is(h1,h2,.txt,.eyebrow,.hero-date,.addr,.note,.time,.sig,.bigdate){position:relative;isolation:isolate}
+.scene .inner>:is(h1,h2,.txt,.eyebrow,.hero-date,.addr,.note,.time,.sig,.bigdate)::after{content:"";position:absolute;inset:-14px -22px;z-index:-1;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(251,248,243,.95) 45%,rgba(251,248,243,.8) 70%,rgba(251,248,243,0))}
+.timeline li{position:relative;isolation:isolate}
+.timeline li::after{content:"";position:absolute;inset:-4px -14px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(251,248,243,.92) 60%,rgba(251,248,243,0))}
 /* continuous branch + bird */
 #branch{position:absolute;left:0;top:0;width:100%;z-index:0;pointer-events:none;overflow:hidden}
 #branch img{position:absolute;max-width:none;opacity:.95;transform-origin:var(--o,0 100%);animation:bsway 4.5s ease-in-out infinite alternate}
@@ -309,7 +315,7 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
     <div class="scrollhint" aria-hidden="true">Листайте<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
   </section>
 
-  <section class="scene" id="s2" data-clear-bl>
+  <section class="scene" id="s2" data-clear-bl data-perch="lt" data-perch-pad="1">
     <div class="fw" style="width:calc(min(50vw,250px)*var(--fk,1));bottom:-16%;left:-6%;--fx:-40px;--fy:40px;--fr:4deg;--d:.6s;--sw:8s"><img src="assets/n_lily.webp" alt=""></div>
     <div class="inner">
       <div class="frame ap zoom" style="--d:.2s"><div class="arch"><img src="assets/ring.jpg" alt="Ариф и Жанна"></div></div>
@@ -565,15 +571,15 @@ var bird={x:0,y:0,face:1,scene:-1,perch:null,raf:0};
 function targetFor(i){
   var s=list[i];if(!s||!perches.length)return null;
   var cands=[],t=s.offsetTop,h=s.offsetHeight,W=scenes.clientWidth,best=null,bd=1e9,sr=scenes.getBoundingClientRect(),st=scenes.scrollTop;
-  var boxes=[].map.call(s.querySelectorAll('h1,h2,.eyebrow,.txt,.addr,.btn,form,.timeline li,.sig,.count,.bigdate,.time,.note,.oval,.frame,.closer'),function(e){var r=e.getBoundingClientRect();return [r.left-sr.left,r.top-sr.top+st,r.right-sr.left,r.bottom-sr.top+st];});
+  var boxes=[].map.call(s.querySelectorAll(s.hasAttribute('data-perch-pad')?'h1,h2,.txt,.eyebrow,.orn':'h1,h2,.eyebrow,.txt,.addr,.btn,form,.timeline li,.sig,.count,.bigdate,.time,.note,.oval,.frame,.closer'),function(e){var r=e.getBoundingClientRect();return [r.left-sr.left,r.top-sr.top+st,r.right-sr.left,r.bottom-sr.top+st];});
   perches.forEach(function(p){
-    var hit=boxes.some(function(r){return p.x+40>r[0]&&p.x-40<r[2]&&p.y+12>r[1]&&p.y-56<r[3];});
+    var bw=(birdEl.offsetWidth||86),pad=s.hasAttribute('data-perch-pad')?30:0;var hit=boxes.some(function(r){return p.x+bw*.55+pad>r[0]&&p.x-bw*.55-pad<r[2]&&p.y+bw*.45+pad>r[1]&&p.y-bw*.7-pad<r[3];});
     var inside=p.y>t+h*.06&&p.y<t+h*.95&&p.x>20&&p.x<W-20;
     var dy=Math.min(Math.abs(p.y-(t+h*.16)),Math.abs(p.y-(t+h*.84)));
     var dx=Math.max(0,Math.min(p.x,W-p.x)-W*.22)*3;
     var pf=s.getAttribute('data-perch')||'',side=0;
     if(pf){if(pf.indexOf('r')>=0&&p.x<W/2)side=2e4;if(pf.indexOf('l')>=0&&p.x>W/2)side=2e4;
-      dx=0;dy=pf.indexOf('t')>=0?(p.y-t):pf.indexOf('b')>=0?(t+h-p.y):Math.abs(p.y-(t+h*.5));if(hit){dy+=5000;hit=false;}}
+      dx=0;dy=pf.indexOf('t')>=0?(p.y-t):pf.indexOf('b')>=0?(t+h-p.y):Math.abs(p.y-(t+h*.5));if(hit){dy+=4e4;hit=false;}}
     var d=dy+dx+side+(inside?0:1e5)+(hit?5e4:0);
     cands.push([d,p]);if(d<bd){bd=d;best=p;}
   });
@@ -617,6 +623,7 @@ var state='closed',busy=false;
 function openInvite(){
   if(state!=='closed'||busy)return;busy=true;state='open';
   env.classList.add('open');
+  try{bgm.currentTime=0;}catch(e){}
   playMusic();mb.hidden=false;
   var t1=reduce?0:2300,t2=reduce?0:2900;
   setTimeout(function(){env.classList.add('lift');},t1);
