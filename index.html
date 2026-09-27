@@ -62,10 +62,10 @@ img{display:block;max-width:100%}
 .intro-foot{font-family:var(--sans);font-weight:500;letter-spacing:.2em;text-transform:uppercase;font-size:clamp(14px,3.9vw,17px);padding-left:.3em;animation:breathe 2.6s ease-in-out infinite}
 @keyframes breathe{50%{opacity:.45}}
 
-.env-wrap{position:relative;width:min(88vw,440px,62vh);perspective:1600px}
+.env-wrap{position:relative;width:min(74vw,380px,50vh);perspective:1600px}
 .env{
   position:relative;display:block;width:100%;aspect-ratio:920/690;padding:0;border:0;background:none;cursor:pointer;
-  font-size:calc(min(88vw,440px,62vh) / 40);
+  font-size:calc(min(74vw,380px,50vh) / 40);
   filter:drop-shadow(0 14px 24px rgba(40,30,20,.35));
   transition:transform 1.1s cubic-bezier(.6,0,.3,1);
   animation:envIdle 4s ease-in-out infinite;
@@ -132,8 +132,8 @@ img{display:block;max-width:100%}
   background:radial-gradient(closest-side,rgba(251,248,243,.82) 45%,rgba(251,248,243,0))}
 /* continuous branch + bird */
 #branch{position:absolute;left:0;top:0;width:100%;z-index:0;pointer-events:none;overflow:hidden}
-#branch img{position:absolute;max-width:none;opacity:.95;transform-origin:var(--o,0 100%);animation:bsway 9s ease-in-out infinite alternate}
-@keyframes bsway{from{rotate:-.7deg}to{rotate:.7deg}}
+#branch img{position:absolute;max-width:none;opacity:.95;transform-origin:var(--o,0 100%);animation:bsway 4.5s ease-in-out infinite alternate}
+@keyframes bsway{from{rotate:-1.6deg}to{rotate:1.6deg}}
 #bird{position:absolute;left:0;top:0;width:calc(86px*var(--k,1));z-index:4;pointer-events:none;will-change:transform;opacity:0;transition:opacity .4s}
 #bird.on{opacity:1}
 #bird img{width:100%;display:block}
@@ -152,8 +152,8 @@ img{display:block;max-width:100%}
   transition:opacity 1.4s ease,transform 1.8s cubic-bezier(.2,.7,.2,1);transition-delay:0s}
 .fw.over{z-index:3}
 .active .fw{opacity:var(--op,1);transform:rotate(var(--fr,0deg));transition-delay:var(--d,.1s)}
-.fw img{width:100%;animation:sway var(--sw,7s) ease-in-out infinite alternate;transform-origin:var(--so,50% 100%)}
-@keyframes sway{from{transform:rotate(-2.2deg) translateY(0)}to{transform:rotate(2.2deg) translateY(-4px)}}
+.fw img{width:100%;animation:sway calc(var(--sw,7s) * .5) ease-in-out infinite alternate;transform-origin:var(--so,50% 100%)}
+@keyframes sway{from{transform:rotate(-4deg) translateY(0)}to{transform:rotate(4deg) translateY(-7px)}}
 
 .eyebrow{font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.24em;font-size:16px;font-weight:500;color:var(--brown);padding-left:.24em}
 h2{font-family:var(--script);font-weight:400;font-size:clamp(46px,13vw,64px);line-height:1.05;color:var(--bordo);margin:0}
@@ -221,6 +221,13 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
 
 /* final */
 .sig{font-family:var(--script);font-size:clamp(46px,13vw,60px);color:var(--bordo);line-height:1.05}
+.scrollhint{position:absolute;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:3;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--bordo);font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  opacity:0;transition:opacity 1s ease 2.4s;pointer-events:none}
+.active .scrollhint{opacity:.85}
+.scrollhint svg{width:26px;height:26px;animation:hintdown 1.6s ease-in-out infinite}
+.scrollhint svg+svg{margin-top:-16px;opacity:.5;animation-delay:.15s}
+@keyframes hintdown{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 .closer{position:absolute;left:64px;right:64px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;
   font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.12em;line-height:1.6;text-transform:uppercase;color:var(--ink-soft);background:none;border:0;cursor:pointer;padding:6px}
 .closer .bar{width:120px;height:2px;background:rgba(122,91,75,.2);border-radius:2px;overflow:hidden}
@@ -286,6 +293,7 @@ input[type=text]{font-family:var(--serif);font-size:21px;color:var(--ink);backgr
       <div class="hero-date ap" style="--d:1.3s">07 · 11 · 2026</div>
       <p class="txt ap" style="--d:1.7s">Приглашаем вас разделить с нами <em>самый счастливый день</em> нашей жизни</p>
     </div>
+    <div class="scrollhint" aria-hidden="true">Листайте<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
   </section>
 
   <section class="scene" id="s2" data-clear-bl>
